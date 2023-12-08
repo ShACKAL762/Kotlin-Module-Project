@@ -1,13 +1,23 @@
-fun addNote(archive: MutableMap<String, String>): MutableMap<String, String> {
+fun addNote(menu: SecondMenu): MutableMap<String, String> {
     val exitCommand = "0"
+    val archive = menu.mapList
+    val list = menu.list
+    var command:String
     println("Введите имя новой заметки или 0 для возврата")
-    val command = Scanner().scannerCreate()
-    if (command == exitCommand) {
-        return archive
+    while (true) {
+        command = Scanner().scannerCreate()
+        if (command == exitCommand) {
+            return archive
+        }
+        if (list.contains(command))
+            println("Заметка с таким именем существует, выберите другое")
+        else break
+
     }
     val title = command
     println("Введите содержание заметки")
     val text = Scanner().scannerCreate()
-    archive.put(title,text)
+    list.add(list.size-1,command)
+    archive[title] = text
     return archive
 }
